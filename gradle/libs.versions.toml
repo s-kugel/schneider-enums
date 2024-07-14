@@ -1,0 +1,11 @@
+[versions]
+spotless = "6.25.0"
+lombok = "1.18.34"
+guava = "33.2.1-jre"
+
+[plugins]
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
+
+[libraries]
+lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
+guava = { module = "com.google.guava:guava", version.ref = "guava" }
