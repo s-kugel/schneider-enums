@@ -1,9 +1,12 @@
+import com.s_kugel.schneider.generator.enums.EnumGeneratorTask
+
 plugins {
     `java-library`
     idea
     eclipse
     `maven-publish`
     alias(libs.plugins.spotless)
+    id("com.s-kugel.schneider.plugin.enum-generator") version("1.0.0")
 }
 
 repositories {
@@ -48,4 +51,25 @@ publishing {
             from(components["java"])
         }
     }
+    repositories {
+        mavenLocal()
+    }
+}
+
+tasks.register<EnumGeneratorTask>("generateEuleEnum") {
+    url = "jdbc:mysql://${System.getenv("EULE_DB_HOST")}:${System.getenv("EULE_DB_PORT")}/${System.getenv("EULE_DB_NAME")}"
+    user = System.getenv("EULE_DB_USER")
+    password = System.getenv("EULE_DB_PASSWORD")
+    tables = listOf("Authority", "StaffStatus")
+    packageName = "com.s_kugel.schneider.enums"
+    outDir = "${projectDir.path}/src/main/java"
+}
+
+tasks.register<EnumGeneratorTask>("generateFasanEnum") {
+    url = "jdbc:mysql://${System.getenv("FASAN_DB_HOST")}:${System.getenv("FASAN_DB_PORT")}/${System.getenv("FASAN_DB_NAME")}"
+    user = System.getenv("FASAN_DB_USER")
+    password = System.getenv("FASAN_DB_PASSWORD")
+    tables = listOf()
+    packageName = "com.s_kugel.schneider.enums"
+    outDir = "${projectDir.path}/src/main/java"
 }

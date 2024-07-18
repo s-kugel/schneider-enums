@@ -9,32 +9,42 @@ import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 
 /**
- * 社内ユーザーステータス
+ * 権限
  *
  * @author schneider-code-generator
  */
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public enum StaffStatus {
+public enum Authority {
 
   /**
-   * 無効
+   * ロール編集
    */
-  DISABLED("無効"),
+  EDIT_ROLE("ロール編集"),
 
   /**
-   * 有効
+   * 社内ユーザー編集
    */
-  ENABLED("有効");
+  EDIT_STAFF("社内ユーザー編集"),
+
+  /**
+   * ロール閲覧
+   */
+  VIEW_ROLE("ロール閲覧"),
+
+  /**
+   * 社内ユーザー閲覧
+   */
+  VIEW_STAFF("社内ユーザー閲覧");
 
   final String label;
 
-  public static Optional<StaffStatus> fromCode(String code) {
+  public static Optional<Authority> fromCode(String code) {
     return Arrays.stream(values()).filter(v -> Objects.equals(v.name(), code)).findFirst();
   }
 
-  public static Optional<StaffStatus> fromLabel(String label) {
+  public static Optional<Authority> fromLabel(String label) {
     return Arrays.stream(values()).filter(v -> Objects.equals(v.label, label)).findFirst();
   }
 }
